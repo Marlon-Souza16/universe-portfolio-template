@@ -35,7 +35,7 @@ export function IdentityNode() {
   const t = useTranslations("Identity");
   const prominent = stage === "overview" || stage === "identity-focus";
   const focused = prominent && reveal.focused;
-  const cover = useProjectCoverTexture(identity, locale, reveal.image);
+  const cover = useProjectCoverTexture(identity, locale, prominent, stage === "identity-focus");
 
   useFrame(({camera}, delta) => {
     distanceRef.current = camera.position.distanceTo(identityPosition);
@@ -76,7 +76,7 @@ export function IdentityNode() {
             <meshBasicMaterial ref={ringMaterial} color="#78d7ff" transparent opacity={0.48} depthWrite={false} />
           </mesh>
         </group>
-        {cover && <Billboard follow position={[0, 0.8, 0]}>
+        {reveal.image && cover && <Billboard follow position={[0, 0.8, 0]}>
           <group scale={0.72} onClick={(event) => activateWorldItem(event, focusIdentity)}>
             <FragmentedProjectCover cover={cover} distanceRef={distanceRef} quality={quality} reducedMotion={reducedMotion} seed={identity.id} />
           </group>

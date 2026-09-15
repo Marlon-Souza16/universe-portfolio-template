@@ -1,0 +1,126 @@
+{
+  "date": "2026-09-15",
+  "environment": "Production Next.js build; Chromium 153 via Playwright; SwiftShader software WebGL; deviceScaleFactor 2; 2500 ms interaction windows. Single runs, not hardware FPS benchmarks.",
+  "runs": {
+    "before-desktop": {
+      "canvas": {
+        "width": 2160,
+        "height": 1350,
+        "cssWidth": 1440,
+        "cssHeight": 900
+      },
+      "coverBodyBytes": 398,
+      "coverRequestRelativeToClusterMs": 474.4,
+      "coverUploadRelativeToClusterMs": 685.3,
+      "coverUploads": 1,
+      "interactions": {
+        "cluster": {
+          "frameCount": 100,
+          "p95FrameMs": 66.6,
+          "maxFrameMs": 150,
+          "framesOver33_4Ms": 10,
+          "reactRootCommits": 46,
+          "imageUploads": 1
+        },
+        "focus": {
+          "frameCount": 46,
+          "p95FrameMs": 200,
+          "maxFrameMs": 383.3,
+          "framesOver33_4Ms": 15,
+          "reactRootCommits": 52,
+          "imageUploads": 0
+        }
+      }
+    },
+    "final-desktop": {
+      "canvas": {
+        "width": 2160,
+        "height": 1350,
+        "cssWidth": 1440,
+        "cssHeight": 900
+      },
+      "coverBodyBytes": 398,
+      "coverRequestRelativeToClusterMs": -2559.3,
+      "coverUploadRelativeToClusterMs": -2532.1,
+      "coverUploads": 1,
+      "interactions": {
+        "cluster": {
+          "frameCount": 107,
+          "p95FrameMs": 50,
+          "maxFrameMs": 200,
+          "framesOver33_4Ms": 10,
+          "reactRootCommits": 43,
+          "imageUploads": 0
+        },
+        "focus": {
+          "frameCount": 44,
+          "p95FrameMs": 266.6,
+          "maxFrameMs": 350.0,
+          "framesOver33_4Ms": 17,
+          "reactRootCommits": 52,
+          "imageUploads": 0
+        }
+      }
+    },
+    "before-mobile": {
+      "canvas": {
+        "width": 487,
+        "height": 1055,
+        "cssWidth": 390,
+        "cssHeight": 844
+      },
+      "coverBodyBytes": 398,
+      "coverRequestRelativeToClusterMs": 379.2,
+      "coverUploadRelativeToClusterMs": 402.3,
+      "coverUploads": 1,
+      "interactions": {
+        "cluster": {
+          "frameCount": 150,
+          "p95FrameMs": 16.7,
+          "maxFrameMs": 16.8,
+          "framesOver33_4Ms": 0,
+          "reactRootCommits": 45,
+          "imageUploads": 1
+        },
+        "focus": {
+          "frameCount": 150,
+          "p95FrameMs": 16.8,
+          "maxFrameMs": 16.8,
+          "framesOver33_4Ms": 0,
+          "reactRootCommits": 59,
+          "imageUploads": 0
+        }
+      }
+    },
+    "final-mobile": {
+      "canvas": {
+        "width": 487,
+        "height": 1055,
+        "cssWidth": 390,
+        "cssHeight": 844
+      },
+      "coverBodyBytes": 398,
+      "coverRequestRelativeToClusterMs": -2597.3,
+      "coverUploadRelativeToClusterMs": -2583.0,
+      "coverUploads": 1,
+      "interactions": {
+        "cluster": {
+          "frameCount": 150,
+          "p95FrameMs": 16.7,
+          "maxFrameMs": 16.8,
+          "framesOver33_4Ms": 0,
+          "reactRootCommits": 44,
+          "imageUploads": 0
+        },
+        "focus": {
+          "frameCount": 150,
+          "p95FrameMs": 16.7,
+          "maxFrameMs": 16.8,
+          "framesOver33_4Ms": 0,
+          "reactRootCommits": 59,
+          "imageUploads": 0
+        }
+      }
+    }
+  }
+}

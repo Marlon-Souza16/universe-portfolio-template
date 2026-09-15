@@ -1,9 +1,11 @@
-import {useRef, useState} from "react";
+import {useMemo, useRef, useState} from "react";
 import type {RefObject} from "react";
 import {Billboard, Html, Line, useCursor} from "@react-three/drei";
 import {useFrame, useThree} from "@react-three/fiber";
 import {Group, MathUtils} from "three";
 
+import {portfolioNodes} from "@/content/nodes";
+import {imageFormationConfig} from "@/lib/scene-config";
 import {clusterById} from "@/content/clusters";
 import {nodeRevealDistance, getRevealState} from "@/lib/performance-quality";
 import {resolveLocalizedText} from "@/lib/portfolio-types";
@@ -17,6 +19,7 @@ import {useExperienceStore} from "@/store/experience-store";
 
 import {MicroUniverse} from "./MicroUniverse";
 import {FragmentedProjectCover} from "./FragmentedProjectCover";
+import type {ProjectCoverTexture} from "./useProjectCoverTexture";
 import {useProjectCoverTexture} from "./useProjectCoverTexture";
 
 type PortfolioNodeMeshProps = {
@@ -70,16 +73,16 @@ function NodePreview({
   color,
   distanceRef,
   onActivate,
+  cover,
 }: {
   node: PortfolioNode;
   color: string;
   distanceRef: RefObject<number>;
   onActivate: () => void;
+  cover: ProjectCoverTexture | null;
 }) {
-  const locale = useExperienceStore((state) => state.locale);
   const quality = useExperienceStore((state) => state.quality);
   const reducedMotion = useExperienceStore((state) => state.reducedMotion);
-  const cover = useProjectCoverTexture(node, locale, true);
 
   return (
     <Billboard
@@ -143,6 +146,7 @@ export function PortfolioNodeMesh({
   const reducedMotion = useExperienceStore((state) => state.reducedMotion);
   const selectedNodeId = useExperienceStore((state) => state.selectedNodeId);
   const selectedClusterId = useExperienceStore((state) => state.selectedClusterId);
+  const quality = useExperienceStore((state) => state.quality);
   const viewport = useThree((state) => state.size);
   const focusNode = useExperienceStore((state) => state.focusNode);
   const openNodeCase = useExperienceStore((state) => state.openNodeCase);
@@ -153,6 +157,13 @@ export function PortfolioNodeMesh({
   const relevant = !selectedNodeId || selected;
   const showsIdentity = reveal !== "signal" && relevant;
   const showsPreview = reveal === "preview" || reveal === "selected";
+  // Limit cluster warming to the same number of covers allowed by the scene budget.
+  const clusterIndex = useMemo(() => portfolioNodes.filter(candidate => candidate.cluster === node.cluster)
+    .findIndex(candidate => candidate.id === node.id), [node]);
+  const clusterWarm = selectedClusterId === node.cluster && !selectedNodeId
+    && clusterIndex < imageFormationConfig[quality].activeNodeLimit;
+  const cover = useProjectCoverTexture(node, locale,
+    selected || hovered || formationActive || clusterWarm, selected || hovered);
   useCursor(hovered);
 
   useFrame(({camera}, delta) => {
@@ -198,6 +209,7 @@ export function PortfolioNodeMesh({
       {showsIdentity && formationActive && (
         <NodePreview
           node={node}
+          cover={cover}
           color={cluster.color}
           distanceRef={distanceRef}
           onActivate={openDetails}

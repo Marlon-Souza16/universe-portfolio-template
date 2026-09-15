@@ -66,3 +66,10 @@ Read the [architecture guide](docs/en/architecture.md) before changing engine be
 ## License
 
 [MIT](LICENSE). Use, modify and distribute the template, including commercially, while retaining the required copyright and license notices. Dependencies retain their respective licenses.
+
+### Image and texture optimization
+
+Run `npm run optimize:images` after adding raster assets. The reusable pipeline
+preserves originals and generates contextual scene/focus variants.
+See [image performance](docs/en/image-performance.md) for sizes, formats, fallbacks
+and production profiling instructions.

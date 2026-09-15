@@ -1,10 +1,11 @@
-import {useEffect, useMemo, useRef} from "react";
+import {useEffect, useLayoutEffect, useMemo, useRef} from "react";
 import {useFrame} from "@react-three/fiber";
 import {
   DoubleSide,
   MathUtils,
   MeshBasicMaterial,
   ShaderMaterial,
+  Vector2,
 } from "three";
 import type {RefObject} from "react";
 
@@ -95,14 +96,14 @@ export function FragmentedProjectCover({
   const uniforms = useMemo(() => ({
     uFormation: {value: 0},
     uDepth: {value: profile.depth},
-    uMap: {value: cover.texture},
+    uMap: {value: null},
     uMotionScale: {value: reducedMotion ? 0.14 : 1},
     uOpacity: {value: 0},
     uRotation: {value: profile.rotation},
     uScatter: {value: profile.scatter},
-    uUvOffset: {value: cover.uvOffset},
-    uUvScale: {value: cover.uvScale},
-  }), [cover, profile.depth, profile.rotation, profile.scatter, reducedMotion]);
+    uUvOffset: {value: new Vector2()},
+    uUvScale: {value: new Vector2(1, 1)},
+  }), [profile.depth, profile.rotation, profile.scatter, reducedMotion]);
   const material = useMemo(() => new ShaderMaterial({
     depthWrite: false,
     fragmentShader: profile.mode === "tiles" ? coverFragmentShader : dissolveFragmentShader,
@@ -112,10 +113,13 @@ export function FragmentedProjectCover({
     vertexShader: tileVertexShader,
   }), [profile.mode, uniforms]);
 
-  useEffect(() => () => {
-    geometry.dispose();
-    material.dispose();
-  }, [geometry, material]);
+  useLayoutEffect(() => {
+    material.uniforms.uMap.value = cover.texture;
+    material.uniforms.uUvOffset.value.copy(cover.uvOffset);
+    material.uniforms.uUvScale.value.copy(cover.uvScale);
+  }, [cover, material]);
+  useEffect(() => () => geometry.dispose(), [geometry]);
+  useEffect(() => () => material.dispose(), [material]);
 
   useFrame((_, delta) => {
     const target = getFormationProgress(distanceRef.current);
