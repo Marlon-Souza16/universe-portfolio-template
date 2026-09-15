@@ -8,6 +8,7 @@ import type {AppLocale} from "@/i18n/routing";
 import {resolveLocalizedText, type PortfolioNode} from "@/lib/portfolio-types";
 import {useExperienceStore} from "@/store/experience-store";
 
+import {ResponsiveImage} from "./ResponsiveImage";
 import {ProceduralCover} from "./ProceduralCover";
 import {IdentityActions} from "./IdentityActions";
 
@@ -27,8 +28,9 @@ function ExplorerCover({node, locale}: {node: PortfolioNode; locale: AppLocale})
 
   return (
     <span className="fallback-node__cover">
-      <img
+      <ResponsiveImage
         src={cover.src}
+        thumbnail
         alt={resolveLocalizedText(cover.alt, locale)}
         width={960}
         height={540}

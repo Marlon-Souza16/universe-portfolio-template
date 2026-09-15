@@ -10,8 +10,11 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "test": "rm -rf .test-dist && tsc -p tsconfig.navigation-test.json && for suite in .test-dist/src/lib/*.test.js .test-dist/src/store/*.test.js; do node \"$suite\" || exit; done",
-    "typecheck": "tsc --noEmit"
+    "test": "rm -rf .test-dist && tsc -p tsconfig.navigation-test.json && for suite in .test-dist/src/lib/*.test.js .test-dist/src/store/*.test.js; do node \"$suite\" || exit; done && npm run test:images",
+    "typecheck": "tsc --noEmit",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "test:images": "node --test scripts/optimize-images.test.mjs",
+    "validate:content": "npm test"
   },
   "dependencies": {
     "@react-three/drei": "10.7.8",
@@ -30,6 +33,7 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.5",
     "@types/three": "0.185.4",
+    "sharp": "0.35.4",
     "tailwindcss": "4.3.3",
     "typescript": "7.0.2"
   }

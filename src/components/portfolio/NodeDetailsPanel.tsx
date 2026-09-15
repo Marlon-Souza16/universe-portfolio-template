@@ -10,6 +10,7 @@ import type {PortfolioNode} from "@/lib/portfolio-types";
 
 import type {GraphTarget} from "@/lib/portfolio-graph";
 import {CaseEvidence} from "./CaseEvidence";
+import {ResponsiveImage} from "./ResponsiveImage";
 import {ProceduralCover} from "./ProceduralCover";
 
 type NodeDetailsPanelProps = {
@@ -66,8 +67,9 @@ export function NodeDetailsPanel({node, locale, onClose, onNavigate}: NodeDetail
 
         <div className="node-dialog__visual">
           {node.coverImage && !imageFailed ? (
-            <img
+            <ResponsiveImage
               src={node.coverImage.src}
+              sizes="(max-width: 768px) calc(100vw - 48px), 656px"
               alt={resolveLocalizedText(node.coverImage.alt, locale)}
               width={960}
               height={540}

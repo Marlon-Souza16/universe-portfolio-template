@@ -66,3 +66,9 @@ Leia o [guia de arquitetura](docs/pt-BR/architecture.md) antes de alterar o moto
 ## Licença
 
 [MIT](LICENSE). Você pode usar, modificar e distribuir o template, inclusive comercialmente, preservando os avisos de copyright e licença exigidos. As dependências mantêm suas respectivas licenças.
+
+### Otimização de imagens e texturas
+
+Execute `npm run optimize:images` após adicionar imagens raster. O pipeline preserva
+os originais e gera variantes para a cena e o foco. Consulte o
+[guia de desempenho de imagens (inglês)](docs/en/image-performance.md).
